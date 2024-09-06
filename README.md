@@ -1,3 +1,17 @@
+# Para startar o projeto, 
+
+-** A pasta Serve estão os codigos de Backend**
+-** Na src está as informações de FrontEnd**
+
+para rodar acesse a pasta server e rode o comando 
+
+### npm run start:servers
+
+Na pasta src rode o comando 
+
+### `npm start`
+
+Abra [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 # API Documentation
 
