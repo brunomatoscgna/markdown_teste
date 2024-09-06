@@ -1,70 +1,233 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# API Documentation
 
-## Available Scripts
+## Endpoints
 
-In the project directory, you can run:
+### Autenticação
 
-### `npm start`
+#### 1. Registrar Usuário
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **URL:** `/auth/register`
+- **Método:** `POST`
+- **Descrição:** Registra um novo usuário no sistema.
+  
+**Corpo da Requisição:**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```json
+{
+  "nome_usuario": "Seu Nome",
+  "email": "email@example.com",
+  "senha": "sua_senha"
+}
+```
 
-### `npm test`
+**Exemplo de Resposta:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```json
+{
+  "token": "JWT_TOKEN_AQUI",
+  "nome_usuario": "Seu Nome"
+}
+```
 
-### `npm run build`
+#### 2. Login
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **URL:** `/auth/login`
+- **Método:** `POST`
+- **Descrição:** Faz login no sistema.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Corpo da Requisição:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```json
+{
+  "email": "email@example.com",
+  "senha": "sua_senha"
+}
+```
 
-### `npm run eject`
+**Exemplo de Resposta:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```json
+{
+  "token": "JWT_TOKEN_AQUI",
+  "nome_usuario": "Seu Nome"
+}
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Documentos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 1. Criar/Salvar Documento
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **URL:** `/documents/save`
+- **Método:** `POST`
+- **Descrição:** Salva ou cria um novo documento.
 
-## Learn More
+**Cabeçalhos:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+Authorization: Bearer <TOKEN>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Corpo da Requisição:**
 
-### Code Splitting
+```json
+{
+  "name": "Nome do Documento",
+  "content": "Conteúdo do documento"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Exemplo de Resposta:**
 
-### Analyzing the Bundle Size
+```json
+{
+  "message": "Documento salvo com sucesso"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 2. Listar Documentos
 
-### Making a Progressive Web App
+- **URL:** `/documents`
+- **Método:** `GET`
+- **Descrição:** Retorna a lista de todos os documentos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Cabeçalhos:**
 
-### Advanced Configuration
+```
+Authorization: Bearer <TOKEN>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Exemplo de Resposta:**
 
-### Deployment
+```json
+[
+  {
+    "id": 1,
+    "name": "Documento 1",
+    "date_saved": "2024-09-01T12:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Documento 2",
+    "date_saved": "2024-09-02T15:30:00.000Z"
+  }
+]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### 3. Carregar Documento Específico
 
-### `npm run build` fails to minify
+- **URL:** `/documents/:id`
+- **Método:** `GET`
+- **Descrição:** Retorna um documento específico pelo seu ID.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Cabeçalhos:**
+
+```
+Authorization: Bearer <TOKEN>
+```
+
+**Parâmetros de URL:**
+- `:id` - O ID do documento a ser carregado.
+
+**Exemplo de Resposta:**
+
+```json
+{
+  "id": 1,
+  "name": "Documento 1",
+  "content": "Conteúdo do documento",
+  "date_saved": "2024-09-01T12:00:00.000Z"
+}
+```
+
+#### 4. Editar Documento
+
+- **URL:** `/documents/:id`
+- **Método:** `PUT`
+- **Descrição:** Edita um documento existente.
+
+**Cabeçalhos:**
+
+```
+Authorization: Bearer <TOKEN>
+```
+
+**Corpo da Requisição:**
+
+```json
+{
+  "name": "Nome atualizado do Documento",
+  "content": "Conteúdo atualizado do documento"
+}
+```
+
+**Exemplo de Resposta:**
+
+```json
+{
+  "message": "Documento atualizado com sucesso"
+}
+```
+
+### WebSockets
+
+#### 1. Edição em Tempo Real
+
+- **URL WebSocket:** `ws://localhost:8080`
+- **Descrição:** Conecta-se a um WebSocket para edição colaborativa em tempo real de documentos.
+
+**Mensagem enviada (exemplo de edição):**
+
+```json
+{
+  "token": "JWT_TOKEN_AQUI",
+  "text": "Texto atualizado",
+  "user": "Nome do Usuário"
+}
+```
+
+**Mensagem recebida:**
+
+```json
+{
+  "text": "Texto atualizado",
+  "editedBy": "Nome do Usuário",
+  "usersEditing": ["User 1", "User 2"]
+}
+```
+
+### Erros Comuns
+
+#### 1. Respostas de Erro
+
+- **Erro de Autenticação:**
+
+```json
+{
+  "error": "Token inválido"
+}
+```
+
+- **Erro ao salvar documento:**
+
+```json
+{
+  "error": "Erro ao salvar o documento"
+}
+```
+
+- **Erro de credenciais inválidas (login):**
+
+```json
+{
+  "error": "Email ou senha incorretos"
+}
+```
+
+### Tecnologias Usadas
+
+- **Node.js**
+- **Express**
+- **SQLite** (para armazenamento de dados)
+- **JWT (JSON Web Token)** para autenticação
+- **WebSockets** para edição colaborativa em tempo real
