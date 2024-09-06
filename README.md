@@ -1,7 +1,7 @@
-# Para startar o projeto, 
+# Para Rodar o projeto, 
 
--** A pasta Serve estão os codigos de Backend**
--** Na src está as informações de FrontEnd**
+** A pasta Serve estão os codigos de Backend**
+** Na src está as informações de FrontEnd**
 
 para rodar acesse a pasta server e rode o comando 
 
