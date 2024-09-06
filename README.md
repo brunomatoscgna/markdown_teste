@@ -5,7 +5,7 @@
 
 para rodar acesse a pasta server e rode o comando 
 
-### npm run start:servers
+### `npm run start:servers`
 
 Na pasta src rode o comando 
 
